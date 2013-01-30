@@ -49,9 +49,8 @@ Sample use:
 </pre>  
 ####stop(successCallback, failureCallback);####
 Sample use:
-
-	<pre>
-	<code>
+<pre>
+<code>
 	window.plugins.analytics.stop(
 			function(){
 				console.log("Stop: success");
@@ -60,8 +59,8 @@ Sample use:
 	     		console.log("Stop: failure");
 	     	}
 	);
-	</code>
-	</pre>
+</code>
+</pre>
 ####trackPageView(key, successCallback, failureCallback);####
 <pre>
 /**
@@ -73,8 +72,8 @@ Sample use:
 </pre>
 
 Sample use:
-	<pre>
-	<code>
+<pre>
+<code>
     window.plugins.analytics.trackPageView(
     			"page1.html",
     			 function(){
@@ -84,8 +83,8 @@ Sample use:
     			 	console.log("Track: failure");
     			 }
     );
-    </code>
-	</pre>
+</code>
+</pre>
 	
 ####trackEvent(category, action, label, value, successCallback, failureCallback)####
 <pre>
@@ -101,8 +100,8 @@ Sample use:
 </pre>
 
 Sample use:
-	<pre>
-	<code>
+<pre>
+<code>
 	window.plugins.analytics.trackEvent(
 				"category",
 			    "action",
@@ -115,8 +114,8 @@ Sample use:
 			    	console.log("Track: failure");
 			    }
 	);
-	</code>
-	</pre>
+</code>
+</pre>
 ####trackTiming(category, timing, name, label, successCallback, failureCallback)####
 Used to track timings within your app, such as load times, server calls, page changes etc.
 
@@ -134,8 +133,8 @@ https://developers.google.com/analytics/devguides/collection/android/v2/usertimi
 */
 </pre>
 Sample use:
-	<pre>
-	<code>
+<pre>
+<code>
 	window.plugins.analytics.trackTiming(
 					"load",
 					1248,
@@ -148,8 +147,8 @@ Sample use:
 				    	console.log("Track: failure");
 				    }
 	);
-	</code>
-	</pre>
+</code>
+</pre>
 	
 ####setCustomDimension(index,value, successCallback, failureCallback)####
 Set a custom dimension.  This replaces custom variables from v1.
@@ -157,6 +156,7 @@ see https://developers.google.com/analytics/devguides/platform/features/customdi
 
 Note:  The dimension must be set up through the analytics web console to show up.
 see http://support.google.com/analytics/bin/answer.py?hl=en&answer=2709829
+<pre>
 /**
 * @param index The index of the dimension (set on Google Analytics)
 * @param value The value to set
@@ -164,8 +164,9 @@ see http://support.google.com/analytics/bin/answer.py?hl=en&answer=2709829
 * @param successCallback The success callback
 * @param failureCallback The error callback
  */
-	<pre>
-	<code>
+</pre>
+<pre>
+<code>
 	window.plugins.analytics.setCustomDimension(
 					1,
 					"wifi",
@@ -176,8 +177,8 @@ see http://support.google.com/analytics/bin/answer.py?hl=en&answer=2709829
 				    	console.log("Track: failure");
 				    }
 	);
-	</code>
-	</pre>
+</code>
+</pre>
 };
 Please keep in mind that these methods, as in any other plugin, are ready to be invoked only after '[deviceready](http://docs.phonegap.com/phonegap_events_events.md.html#deviceready)' event has been fired
 One good practice would be to manually stop the session, when the app closes. Add this code to your main activity:
