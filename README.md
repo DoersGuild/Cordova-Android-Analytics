@@ -34,16 +34,8 @@ Using this plugin requires [PhoneGap Cordova library for Android](http://phonega
 The plugin creates the object `window.plugins.analytics`.  To use, call one of the following, available methods:
 
 ####start(successCallback, failureCallback)####
-<pre>
-/**
- * Initialize Google Analytics configuration
- * 
- * @param successCallback	The success callback
- * @param failureCallback	The error callback
- */
-</pre>
-
 Sample use:
+<pre>
 <code>
 	window.plugins.analytics.start(
 			function(){
@@ -53,21 +45,18 @@ Sample use:
 		    	console.log("Start: failure");
 		    }
 	);
-</code>    
-<pre>
-/**
- * Stop tracking with Google Analytics
- * 
- * @param successCallback	The success callback
- * @param failureCallback	The error callback
- */
-   
-  stop(successCallback, failureCallback);
-</pre>
-
+</code>  
+</pre>  
+####stop(successCallback, failureCallback);####
 Sample use:
 
-	window.plugins.analytics.stop(function(){console.log("Stop: success");}, function(){console.log("Stop: failure");});
+	<pre>
+	<code>
+	window.plugins.analytics.stop(
+		function(){console.log("Stop: success");},
+	     function(){console.log("Stop: failure");});
+	</code>
+	</pre>
     
 <pre>
 /**
