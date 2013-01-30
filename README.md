@@ -53,30 +53,43 @@ Sample use:
 	<pre>
 	<code>
 	window.plugins.analytics.stop(
-		function(){console.log("Stop: success");},
-	     function(){console.log("Stop: failure");});
+			function(){
+				console.log("Stop: success");
+			},
+	     	function(){
+	     		console.log("Stop: failure");
+	     	}
+	);
 	</code>
 	</pre>
-    
+####trackPageView(key, successCallback, failureCallback);####
 <pre>
 /**
- * Track a page view on Google Analytics
  * @param key				The name of the tracked item (can be a url or some logical name).
  * 							The key name will be presented in Google Analytics report.  
  * @param successCallback	The success callback
  * @param failureCallback	The error callback 
  */
-   
-  trackPageView(key, successCallback, failureCallback);
 </pre>
 
 Sample use:
-
-    window.plugins.analytics.trackPageView("page1.html", function(){console.log("Track: success");}, function(){console.log("Track: failure");});
+	<pre>
+	<code>
+    window.plugins.analytics.trackPageView(
+    			"page1.html",
+    			 function(){
+    			 	console.log("Track: success");
+    			 },
+    			 function(){
+    			 	console.log("Track: failure");
+    			 }
+    );
+    </code>
+	</pre>
 	
+####trackEvent(category, action, label, value, successCallback, failureCallback)####
 <pre>
 /**
- * Track an event on Google Analytics
  * @param category			The name that you supply as a way to group objects that you want to track
  * @param action			The name the type of event or interaction you want to track for a particular web object
  * @param label				Provides additional information for events that you want to track (optional)
@@ -85,15 +98,87 @@ Sample use:
  * @param successCallback	The success callback
  * @param failureCallback	The error callback 
  */
-
-  trackEvent(category, action, label, value, successCallback, failureCallback);
 </pre>
 
 Sample use:
+	<pre>
+	<code>
+	window.plugins.analytics.trackEvent(
+				"category",
+			    "action",
+			    "event",
+			     1,
+			    function(){
+			    	console.log("Track: success");
+			    }, 
+			    function(){
+			    	console.log("Track: failure");
+			    }
+	);
+	</code>
+	</pre>
+####trackTiming(category, timing, name, label, successCallback, failureCallback)####
+Used to track timings within your app, such as load times, server calls, page changes etc.
 
-	window.plugins.analytics.trackEvent("category", "action", "event", 1, function(){console.log("Track: success");}, function(){console.log("Track: failure");});
+This is new to SDK v2 and only works with beta 4 and above.  Reporting is still sketchy.
+https://developers.google.com/analytics/devguides/collection/android/v2/usertimings?hl=en
+<pre>
+/**
+* @param category The category of timing
+* @param timing The timing value to track (in ms)
+* @param name The name of the timing value
+* @param label Provides additional information for timing events that you want to track (optional)
 
+* @param successCallback The success callback
+* @param failureCallback The error callback
+*/
+</pre>
+Sample use:
+	<pre>
+	<code>
+	window.plugins.analytics.trackTiming(
+					"load",
+					1248,
+					"page1",
+					"label",
+					function(){
+				    	console.log("Track: success");
+				    }, 
+				    function(){
+				    	console.log("Track: failure");
+				    }
+	);
+	</code>
+	</pre>
+	
+####setCustomDimension(index,value, successCallback, failureCallback)####
+Set a custom dimension.  This replaces custom variables from v1.
+see https://developers.google.com/analytics/devguides/platform/features/customdimsmets
 
+Note:  The dimension must be set up through the analytics web console to show up.
+see http://support.google.com/analytics/bin/answer.py?hl=en&answer=2709829
+/**
+* @param index The index of the dimension (set on Google Analytics)
+* @param value The value to set
+* 
+* @param successCallback The success callback
+* @param failureCallback The error callback
+ */
+	<pre>
+	<code>
+	window.plugins.analytics.setCustomDimension(
+					1,
+					"wifi",
+					function(){
+				    	console.log("Track: success");
+				    }, 
+				    function(){
+				    	console.log("Track: failure");
+				    }
+	);
+	</code>
+	</pre>
+};
 Please keep in mind that these methods, as in any other plugin, are ready to be invoked only after '[deviceready](http://docs.phonegap.com/phonegap_events_events.md.html#deviceready)' event has been fired
 One good practice would be to manually stop the session, when the app closes. Add this code to your main activity:
 <pre>    
