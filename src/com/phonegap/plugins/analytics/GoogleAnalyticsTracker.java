@@ -24,6 +24,8 @@ public class GoogleAnalyticsTracker extends Plugin {
 	public static final String STOP = "stop";
 	public static final String TRACK_PAGE_VIEW = "trackPageView";
 	public static final String TRACK_EVENT = "trackEvent";
+	public static final String SET_CUSTOM_DIMENSION = "setCustomDimension";
+	public static final String TRACK_TIMING = "trackTiming";
 
 	private Tracker tracker;
 	private com.google.analytics.tracking.android.EasyTracker instance;
@@ -39,6 +41,7 @@ public class GoogleAnalyticsTracker extends Plugin {
 		if (START.equals(action)) {
 			start();
 			result = new PluginResult(Status.OK);
+			System.out.println(result);
 		} else if (TRACK_PAGE_VIEW.equals(action)) {
 			try {
 				trackPageView(data.getString(0));
@@ -57,7 +60,21 @@ public class GoogleAnalyticsTracker extends Plugin {
 		} else if (STOP.equals(action)) {
 			stop();
 			result = new PluginResult(Status.OK);
-		} else {
+		} else if (SET_CUSTOM_DIMENSION.equals(action)) {
+			try {
+				setCustomDimension(data.getInt(0), data.getString(1));
+				result = new PluginResult(Status.OK);
+			} catch (JSONException e) {
+				result = new PluginResult(Status.JSON_EXCEPTION);
+			}
+		}else if (TRACK_TIMING.equals(action)) {
+			try {
+				trackTiming(data.getString(0), data.getLong(1),data.getString(2),data.getString(3));
+				result = new PluginResult(Status.OK);
+			} catch (JSONException e) {
+				result = new PluginResult(Status.JSON_EXCEPTION);
+			}
+		}else {
 			result = new PluginResult(Status.INVALID_ACTION);
 		}
 		return result;
@@ -74,11 +91,20 @@ public class GoogleAnalyticsTracker extends Plugin {
 
 	private void trackPageView(String key) {
 		tracker.trackView(key);
+		//tracker.sendView(key);
 	}
 
 	private void trackEvent(String category, String action, String label,
 			long value) {
-		tracker.trackEvent(category, action, label, value);
+		//tracker.trackEvent(category, action, label, value);
+		tracker.sendEvent(category, action, label, value);
+	}
+	private void trackTiming(String category,long loadTime,String name,String label){
+		tracker.sendTiming(category,loadTime,name,label);
+	}
+	
+	private void setCustomDimension(int Index,String dimensionValue){
+		tracker.setCustomDimension(Index, dimensionValue);
 	}
 
 }

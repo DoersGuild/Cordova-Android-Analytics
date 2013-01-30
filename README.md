@@ -1,12 +1,7 @@
 # Analytics plugin for Phonegap #
 
-The analytics client allows you to send page views to Google Analytics server.
-
-A simple use case would be:
-
-- Initialize Analytics object with the appropriate Google Analytics account.
-- Send page views upon user navigation.
-- Send events upon user interaction.
+The analytics client allows you to send page views, events, timings to Google Analytics.  It also allows you to set custom 
+dimensions that have been set up on this account (see below).
 
 ## Adding the Plugin to your project ##
 
@@ -26,7 +21,7 @@ Using this plugin requires [PhoneGap Cordova library for Android](http://phonega
       &lt;/intent-filter&gt;<br/>
     &lt;/activity&gt;
 
-4. Download [GoogleAnalytics](https://developers.google.com/analytics/devguides/collection/android/resources) library (tested with v2.0 Beta 3; Use the version from this repo if needed) and copy `lib/libGoogleAnalyticsV2.jar` into the libs directory within your project.  You may also need to right click on this file in eclipse and add the jar to the build path.
+4. Download [GoogleAnalytics](https://developers.google.com/analytics/devguides/collection/android/resources) library (tested with v2.0 Beta 4; Use the version from this repo if needed) and copy `lib/libGoogleAnalyticsV2.jar` into the libs directory within your project.  You may also need to right click on this file in eclipse and add the jar to the build path.
 
 5. In your res/xml/config.xml file add the following line:
 
@@ -38,6 +33,7 @@ Using this plugin requires [PhoneGap Cordova library for Android](http://phonega
 
 The plugin creates the object `window.plugins.analytics`.  To use, call one of the following, available methods:
 
+####start(successCallback, failureCallback)####
 <pre>
 /**
  * Initialize Google Analytics configuration
@@ -45,14 +41,19 @@ The plugin creates the object `window.plugins.analytics`.  To use, call one of t
  * @param successCallback	The success callback
  * @param failureCallback	The error callback
  */
-   
-  start(successCallback, failureCallback);
 </pre>
 
 Sample use:
-
-	window.plugins.analytics.start(function(){console.log("Start: success");}, function(){console.log("Start: failure");});
-    
+<code>
+	window.plugins.analytics.start(
+			function(){
+				console.log("Start: success");
+			},
+		    function(){
+		    	console.log("Start: failure");
+		    }
+	);
+</code>    
 <pre>
 /**
  * Stop tracking with Google Analytics
