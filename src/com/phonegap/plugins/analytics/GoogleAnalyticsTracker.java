@@ -91,7 +91,7 @@ public class GoogleAnalyticsTracker extends Plugin {
 	}
 
 	private void trackPageView(String key) {
-		tracker.sendView(key);]
+		tracker.sendView(key);
 	}
 
 	private void trackEvent(String category, String action, String label,
