@@ -1,33 +1,40 @@
 # Analytics plugin for Phonegap #
 
-The analytics client allows you to send page views, events, timings to Google Analytics.  It also allows you to set custom 
-dimensions that have been set up on this account (see below).
+The analytics client allows you to send page views, events, timings to Google Analytics.  It also allows you to set custom dimensions that have been set up on this account (see below).
 
 ## Adding the Plugin to your project ##
 
 Using this plugin requires [PhoneGap Cordova library for Android](http://phonegap.com/download) version 1.9 or above.
 
-1. To install the plugin, move `www/analytics.js` to your project's www folder and include a reference to it in your html file after cordova.js.
+1) To install the plugin, move `www/analytics.js` to your project's www folder and include a reference to it in your html file after cordova.js.
 
+<pre>
+<code>
     &lt;script type="text/javascript" charset="utf-8" src="cordova.js"&gt;&lt;/script&gt;<br/>
     &lt;script type="text/javascript" charset="utf-8" src="analytics.js"&gt;&lt;/script&gt;
+</code>
+</pre>
 
-2. Create a directory within your project called `src/com/phonegap/plugins/analytics` and copy `src/com/phonegap/plugins/analytics/GoogleAnalyticsTracker.java` into it.
+2) Create a directory within your project called `src/com/phonegap/plugins/analytics` and copy `src/com/phonegap/plugins/analytics/GoogleAnalyticsTracker.java` into it.
 
-3. Add the following activity to your AndroidManifest.xml file, inside the &lt;application&gt; tag if it isn't already there.
+3) Add the following activity to your AndroidManifest.xml file, inside the &lt;application&gt; tag if it isn't already there.
 
+<pre>
+<code>
     &lt;activity android:name="com.phonegap.DroidGap" android:label="@string/app_name"&gt;<br/>
       &lt;intent-filter&gt;<br/>
       &lt;/intent-filter&gt;<br/>
     &lt;/activity&gt;
+</code>
+</pre>
 
-4. Download [GoogleAnalytics](https://developers.google.com/analytics/devguides/collection/android/resources) library (tested with v2.0 Beta 4; Use the version from this repo if needed) and copy `lib/libGoogleAnalyticsV2.jar` into the libs directory within your project.  You may also need to right click on this file in eclipse and add the jar to the build path.
+4) Download [GoogleAnalytics](https://developers.google.com/analytics/devguides/collection/android/resources) library (tested with v2.0 Beta 4; Use the version from this repo if needed) and copy `lib/libGoogleAnalyticsV2.jar` into the libs directory within your project.  You may also need to right click on this file in eclipse and add the jar to the build path.
 
-5. In your res/xml/config.xml file add the following line:
+5) In your res/xml/config.xml file add the following line:
 
 ```<plugin name="GoogleAnalyticsTracker" value="com.phonegap.plugins.analytics.GoogleAnalyticsTracker" />```
 
-6. Copy the `res/values/analytics.xml` file to the corresponding location in your project and set your App's Tracking ID in there. [Documentation](https://developers.google.com/analytics/devguides/collection/android/v2/parameters)
+6) Copy the `res/values/analytics.xml` file to the corresponding location in your project and set your App's Tracking ID in there. [Documentation](https://developers.google.com/analytics/devguides/collection/android/v2/parameters)
 
 ## Using the plugin ##
 
@@ -181,6 +188,9 @@ see http://support.google.com/analytics/bin/answer.py?hl=en&answer=2709829
 </pre>
 };
 Please keep in mind that these methods, as in any other plugin, are ready to be invoked only after '[deviceready](http://docs.phonegap.com/phonegap_events_events.md.html#deviceready)' event has been fired
+
+---
+
 One good practice would be to manually stop the session, when the app closes. Add this code to your main activity:
 <pre>    
 @Override
@@ -192,6 +202,11 @@ public void onDestroy()
 </pre>
 
 ## RELEASE NOTES ##
+
+### FEB, 12, 2013 ###
+
+* Support for GA SDK v2 beta 4
+* Merged from [JesseHensold / Cordova-Android-Analytics](https://github.com/JesseHensold/Cordova-Android-Analytics) to add `trackTiming` and `setCustomDimension`
 
 ### NOV, 14, 2012 ###
 
@@ -210,8 +225,6 @@ public void onDestroy()
 
 * Initial release
 
-## BUGS AND CONTRIBUTIONS ##
-
 ## LICENSE ##
 
 PhoneGap is available under *either* the terms of the modified BSD license *or* the
@@ -223,66 +236,10 @@ the directories in which they reside and in the code itself. No external
 contributions are allowed under licenses which are fundamentally incompatible
 with the MIT or BSD licenses that PhoneGap is distributed under.
 
-The text of the MIT and BSD licenses is reproduced below. 
-
----
-
-### The "New" BSD License
-
-Copyright (c) 2005-2010, Nitobi Software Inc.
-All rights reserved.
-
-Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met:
-
-  * Redistributions of source code must retain the above copyright notice, this
-    list of conditions and the following disclaimer.
-  * Redistributions in binary form must reproduce the above copyright notice,
-    this list of conditions and the following disclaimer in the documentation
-    and/or other materials provided with the distribution.
-  * Neither the name of Phonegap/Nitobi nor the names of its contributors
-    may be used to endorse or promote products derived from this software
-    without specific prior written permission.
-
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-
----
-
-### The MIT License
-
-Copyright (c) <2010> <Nitobi Software Inc., et. al., >
-
- Permission is hereby granted, free of charge, to any person obtaining a copy
- of this software and associated documentation files (the "Software"), to deal
- in the Software without restriction, including without limitation the rights
- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- copies of the Software, and to permit persons to whom the Software is
- furnished to do so, subject to the following conditions:
-
- The above copyright notice and this permission notice shall be included in
- all copies or substantial portions of the Software.
-
- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- THE SOFTWARE.
- 
  ---
  
- ### libGoogleAnalytics.jar
+### libGoogleAnalyticsV2.jar ###
  
- The libGoogleAnalyticsV2.jar is distributed under Apache License, Version 2.0.
- License URL: http://www.apache.org/licenses/LICENSE-2.0
- libGoogleAnalyticsV2.jar URL: https://dl.google.com/gaformobileapps/GoogleAnalyticsAndroid.zip
+ `libGoogleAnalyticsV2.jar` is distributed under Apache License, Version 2.0.
+ + License URL: http://www.apache.org/licenses/LICENSE-2.0
+ + libGoogleAnalyticsV2.jar URL: https://dl.google.com/gaformobileapps/GoogleAnalyticsAndroid.zip
