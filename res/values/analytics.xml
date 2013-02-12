@@ -3,11 +3,14 @@
 
     <!-- Replace placeholder ID with your tracking ID -->
     <string name="ga_trackingId">UA-XXXXXXX-X</string>
-
-    <!-- Enable Activity tracking -->
-    <bool name="ga_autoActivityTracking">true</bool>
+    
+    <!-- Disable Activity tracking, not used in Cordova which only has one activity-->
+    <bool name="ga_autoActivityTracking">false</bool>
 
     <!-- Enable automatic exception tracking -->
     <bool name="ga_reportUncaughtExceptions">true</bool>
+    
+    <!-- Enable debugging -->
+    <bool name="ga_debug">true</bool>
 
 </resources>
