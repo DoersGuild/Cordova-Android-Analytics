@@ -207,6 +207,7 @@ public void onDestroy()
 
 * Support for GA SDK v2 beta 4
 * Merged from [JesseHensold / Cordova-Android-Analytics](https://github.com/JesseHensold/Cordova-Android-Analytics) to add `trackTiming` and `setCustomDimension`
+* Add JS API for `trackTiming` and `setCustomDimension`
 
 ### NOV, 14, 2012 ###
 
