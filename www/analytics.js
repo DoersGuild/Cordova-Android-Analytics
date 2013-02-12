@@ -1,59 +1,46 @@
 /*
- * PhoneGap is available under *either* the terms of the modified BSD license *or* the
- * MIT License (2008). See http://opensource.org/licenses/alphabetical for full text.
- *
- * Copyright (c) 2006-2011 Worklight, Ltd. 
- * Upgraded by Doers' Guild. 
- */
-
+* PhoneGap is available under *either* the terms of the modified BSD license *or* the
+* MIT License (2008). See http://opensource.org/licenses/alphabetical for full text.
+*
+* Copyright (c) 2006-2011 Worklight, Ltd.
+* Upgraded by Doers' Guild.
+*/
 
 /**
  * Constructor
  */
-var Analytics = function () {};
+var Analytics = function() {
+};
 
 /**
  * Initialize Google Analytics configuration
- * 
+ *
  * @param successCallback   The success callback
  * @param failureCallback   The error callback
  */
 Analytics.prototype.start = function(successCallback, failureCallback) {
-    return cordova.exec(
-                successCallback,             
-                failureCallback,                        
-                'GoogleAnalyticsTracker',               
-                'start', []);
+    return cordova.exec(successCallback, failureCallback, 'GoogleAnalyticsTracker', 'start', []);
 };
 
 /**
  * Stop Google Analytics
- * 
+ *
  * @param successCallback   The success callback
  * @param failureCallback   The error callback
  */
 Analytics.prototype.stop = function(successCallback, failureCallback) {
-    return cordova.exec(
-                successCallback,             
-                failureCallback,                        
-                'GoogleAnalyticsTracker',               
-                'stop', []);
+    return cordova.exec(successCallback, failureCallback, 'GoogleAnalyticsTracker', 'stop', []);
 };
 
 /**
  * Track a page view on Google Analytics
  * @param key				The name of the tracked item (can be a url or some logical name).
- * 							The key name will be presented in Google Analytics report.  
+ * 							The key name will be presented in Google Analytics report.
  * @param successCallback	The success callback
- * @param failureCallback	The error callback 
+ * @param failureCallback	The error callback
  */
 Analytics.prototype.trackPageView = function(key, successCallback, failureCallback) {
-	return cordova.exec(
-				successCallback,			
-				failureCallback,		
-				'GoogleAnalyticsTracker',
-				'trackPageView',		
-				[key]);					
+    return cordova.exec(successCallback, failureCallback, 'GoogleAnalyticsTracker', 'trackPageView', [key]);
 };
 
 /**
@@ -64,28 +51,44 @@ Analytics.prototype.trackPageView = function(key, successCallback, failureCallba
  * @param value				Assign a numerical value to a tracked page object (optional)
 
  * @param successCallback	The success callback
- * @param failureCallback	The error callback 
+ * @param failureCallback	The error callback
  */
 
-Analytics.prototype.trackEvent = function(category, action, label, value, successCallback, failureCallback){
-	return cordova.exec(
-				successCallback,			
-				failureCallback,		
-				'GoogleAnalyticsTracker',
-				'trackEvent',		
-				[
-				    category, 
-				    action, 
-				    typeof label === "undefined" ? "" : label, 
-				    (isNaN(parseInt(value,10))) ? 0 : parseInt(value, 10)
-				]);					
+Analytics.prototype.trackEvent = function(category, action, label, value, successCallback, failureCallback) {
+    return cordova.exec(successCallback, failureCallback, 'GoogleAnalyticsTracker', 'trackEvent', [category, action, typeof label === "undefined" ? "" : label, (isNaN(parseInt(value, 10))) ? 0 : parseInt(value, 10)]);
+};
+
+/**
+ * @param category The category of timing
+ * @param timing The timing (loadTime?) value to track (in ms)
+ * @param name The name of the timing value
+ * @param label Provides additional information for timing events that you want to track (optional)
+
+ * @param successCallback The success callback
+ * @param failureCallback The error callback
+ */
+
+Analytics.prototype.trackTiming = function(category, timing, name, label, successCallback, failureCallback) {
+    return cordova.exec(successCallback, failureCallback, 'GoogleAnalyticsTracker', 'trackTiming', [category, timing, name, typeof label === "undefined" ? "" : label]);
+};
+
+/**
+ * @param index The index of the dimension (set on Google Analytics)
+ * @param value The value to set
+ *
+ * @param successCallback The success callback
+ * @param failureCallback The error callback
+ */
+
+Analytics.prototype.setCustomDimension = function(index, value, successCallback, failureCallback) {
+    return cordova.exec(successCallback, failureCallback, 'GoogleAnalyticsTracker', 'setCustomDimension', [parseInt(index, 10) || 0, typeof value === "undefined" ? "" : value]);
 };
 
 /**
  * Load Analytics
  */
 
-if(!window.plugins) {
+if (!window.plugins) {
     window.plugins = {};
 }
 
