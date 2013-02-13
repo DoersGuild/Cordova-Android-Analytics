@@ -9,6 +9,9 @@
 
     <!-- Enable automatic exception tracking -->
     <bool name="ga_reportUncaughtExceptions">true</bool>
+    
+    <!-- Anonymize tracking -->
+    <bool name="ga_anonymizeIp">true</bool>
 
     <!-- Enable debugging -->
     <bool name="ga_debug">true</bool>
