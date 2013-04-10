@@ -244,3 +244,7 @@ with the MIT or BSD licenses that PhoneGap is distributed under.
  `libGoogleAnalyticsV2.jar` is distributed under Apache License, Version 2.0.
  + License URL: http://www.apache.org/licenses/LICENSE-2.0
  + libGoogleAnalyticsV2.jar URL: https://dl.google.com/gaformobileapps/GoogleAnalyticsAndroid.zip
+
+
+---------------------------------------
+Like our [work](http://doersguild.com)? [Get in touch!](mailto:mail@doersguild.com)
