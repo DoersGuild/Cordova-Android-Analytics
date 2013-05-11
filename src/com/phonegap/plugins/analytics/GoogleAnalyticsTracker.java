@@ -23,6 +23,7 @@ public class GoogleAnalyticsTracker extends CordovaPlugin {
 	public static final String TRACK_EVENT = "trackEvent";
 	public static final String SET_CUSTOM_DIMENSION = "setCustomDimension";
 	public static final String TRACK_TIMING = "trackTiming";
+	public static final String TRACK_SOCIAL = "trackSocial";
 
 	private Tracker tracker;
 	private com.google.analytics.tracking.android.EasyTracker instance;
@@ -81,6 +82,16 @@ public class GoogleAnalyticsTracker extends CordovaPlugin {
 				callbackContext.error("JSON Exception");
 				result = false;
 			}
+		} else if (TRACK_SOCIAL.equals(action)) {
+			try {
+				trackSocial(data.getString(0), data.getString(1),
+						data.getString(2));
+				callbackContext.success();
+				result = true;
+			} catch (JSONException e) {
+				callbackContext.error("JSON Exception");
+				result = false;
+			}
 		} else {
 			callbackContext.error("Invalid Action");
 			result = false;
@@ -113,6 +124,10 @@ public class GoogleAnalyticsTracker extends CordovaPlugin {
 
 	private void setCustomDimension(int Index, String dimensionValue) {
 		tracker.setCustomDimension(Index, dimensionValue);
+	}
+	
+	private void trackSocial(String network, String action, String target ) {
+		tracker.sendSocial(network, action, target);
 	}
 
 }

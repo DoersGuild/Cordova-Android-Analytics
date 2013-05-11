@@ -85,6 +85,20 @@ Analytics.prototype.setCustomDimension = function(index, value, successCallback,
 };
 
 /**
+ * Track social interaction on Google Analytics
+ * @param network	Represents the social network with which the user is interacting (e.g. Google+, Facebook, Twitter, etc.).
+ * @param action	Represents the social action taken (e.g. Like, Share, +1, etc.).
+ * @param target	Represents the content on which the social action is being taken (i.e. a specific article or video). (optional)
+
+ * @param successCallback	The success callback
+ * @param failureCallback	The error callback
+ */
+
+Analytics.prototype.trackSocial = function(network, action, target, successCallback, failureCallback) {
+    return cordova.exec(successCallback, failureCallback, 'GoogleAnalyticsTracker', 'trackSocial', [network, action, typeof target === "undefined" ? "" : target]);
+};
+
+/**
  * Load Analytics
  */
 
