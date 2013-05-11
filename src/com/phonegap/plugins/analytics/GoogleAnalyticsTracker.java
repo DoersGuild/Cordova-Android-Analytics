@@ -8,18 +8,15 @@
 
 package com.phonegap.plugins.analytics;
 
-import org.apache.cordova.api.Plugin;
-import org.apache.cordova.api.PluginResult;
-import org.apache.cordova.api.PluginResult.Status;
+import org.apache.cordova.api.CallbackContext;
+import org.apache.cordova.api.CordovaPlugin;
 import org.json.JSONArray;
 import org.json.JSONException;
 
 import com.google.analytics.tracking.android.EasyTracker;
 import com.google.analytics.tracking.android.Tracker;
 
-import android.util.Log;
-
-public class GoogleAnalyticsTracker extends Plugin {
+public class GoogleAnalyticsTracker extends CordovaPlugin {
 	public static final String START = "start";
 	public static final String STOP = "stop";
 	public static final String TRACK_PAGE_VIEW = "trackPageView";
@@ -36,47 +33,57 @@ public class GoogleAnalyticsTracker extends Plugin {
 	}
 
 	@Override
-	public PluginResult execute(String action, JSONArray data, String callbackId) {
-		PluginResult result = null;
+	public boolean execute(String action, JSONArray data, CallbackContext callbackContext) {
+		boolean result = false;
 		if (START.equals(action)) {
 			start();
-			result = new PluginResult(Status.OK);
-			System.out.println(result);
+			callbackContext.success();
+			result = true;
 		} else if (TRACK_PAGE_VIEW.equals(action)) {
 			try {
 				trackPageView(data.getString(0));
-				result = new PluginResult(Status.OK);
+				callbackContext.success();
+				result = true;
 			} catch (JSONException e) {
-				result = new PluginResult(Status.JSON_EXCEPTION);
+				callbackContext.error("JSON Exception");
+				result = false;
 			}
 		} else if (TRACK_EVENT.equals(action)) {
 			try {
 				trackEvent(data.getString(0), data.getString(1),
 						data.getString(2), data.getLong(3));
-				result = new PluginResult(Status.OK);
+				callbackContext.success();
+				result = true;
 			} catch (JSONException e) {
-				result = new PluginResult(Status.JSON_EXCEPTION);
+				callbackContext.error("JSON Exception");
+				result = false;
 			}
 		} else if (STOP.equals(action)) {
 			stop();
-			result = new PluginResult(Status.OK);
+			callbackContext.success();
+			result = true;
 		} else if (SET_CUSTOM_DIMENSION.equals(action)) {
 			try {
 				setCustomDimension(data.getInt(0), data.getString(1));
-				result = new PluginResult(Status.OK);
+				callbackContext.success();
+				result = true;
 			} catch (JSONException e) {
-				result = new PluginResult(Status.JSON_EXCEPTION);
+				callbackContext.error("JSON Exception");
+				result = false;
 			}
 		} else if (TRACK_TIMING.equals(action)) {
 			try {
 				trackTiming(data.getString(0), data.getLong(1),
 						data.getString(2), data.getString(3));
-				result = new PluginResult(Status.OK);
+				callbackContext.success();
+				result = true;
 			} catch (JSONException e) {
-				result = new PluginResult(Status.JSON_EXCEPTION);
+				callbackContext.error("JSON Exception");
+				result = false;
 			}
 		} else {
-			result = new PluginResult(Status.INVALID_ACTION);
+			callbackContext.error("Invalid Action");
+			result = false;
 		}
 		return result;
 	}
