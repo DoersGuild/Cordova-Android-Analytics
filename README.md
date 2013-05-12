@@ -272,11 +272,16 @@ public void onDestroy()
 
 ## RELEASE NOTES ##
 
+### MAY, 12, 2013 ###
+
+* Upgraded Plugin class to CordovaPlugin, thanks [@xguru](https://github.com/xguru)
+* Added trackSocial and trackCommerce, thanks [@xguru](https://github.com/xguru)
+
 ### FEB, 12, 2013 ###
 
 * Support for GA SDK v2 beta 4
 * Merged from [JesseHensold / Cordova-Android-Analytics](https://github.com/JesseHensold/Cordova-Android-Analytics) to add `trackTiming` and `setCustomDimension`
-* Add JS API for `trackTiming` and `setCustomDimension`
+* Add JS API for `trackTiming` and `setCustomDimension`, thanks [@JesseHensold](https://github.com/JesseHensold)
 
 ### NOV, 14, 2012 ###
 
