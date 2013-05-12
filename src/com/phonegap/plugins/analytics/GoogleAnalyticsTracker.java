@@ -15,6 +15,8 @@ import org.json.JSONException;
 
 import com.google.analytics.tracking.android.EasyTracker;
 import com.google.analytics.tracking.android.Tracker;
+import com.google.analytics.tracking.android.Transaction;
+import com.google.analytics.tracking.android.Transaction.Item;
 
 public class GoogleAnalyticsTracker extends CordovaPlugin {
 	public static final String START = "start";
@@ -24,6 +26,7 @@ public class GoogleAnalyticsTracker extends CordovaPlugin {
 	public static final String SET_CUSTOM_DIMENSION = "setCustomDimension";
 	public static final String TRACK_TIMING = "trackTiming";
 	public static final String TRACK_SOCIAL = "trackSocial";
+	public static final String TRACK_COMMERCE = "trackCommerce";
 
 	private Tracker tracker;
 	private com.google.analytics.tracking.android.EasyTracker instance;
@@ -92,7 +95,17 @@ public class GoogleAnalyticsTracker extends CordovaPlugin {
 				callbackContext.error("JSON Exception");
 				result = false;
 			}
-		} else {
+		} else if (TRACK_COMMERCE.equals(action)) {
+			try {
+				trackCommerce(data.getString(0), data.getLong(1), data.getString(2), data.getString(3),
+						data.getString(4), data.getString(5), data.getLong(6), data.getLong(7), data.getString(8));
+				callbackContext.success();
+				result = true;
+			} catch (JSONException e) {
+				callbackContext.error("JSON Exception");
+				result = false;
+			}
+		}else {
 			callbackContext.error("Invalid Action");
 			result = false;
 		}
@@ -128,6 +141,25 @@ public class GoogleAnalyticsTracker extends CordovaPlugin {
 	
 	private void trackSocial(String network, String action, String target ) {
 		tracker.sendSocial(network, action, target);
+	}
+	
+	private void trackCommerce(String transactionId,long orderTotal,String affiliation,String currencyCode,
+			String SKU, String productName, long productPrice, long productQuantity, String productCategory) {
+		Transaction myTrans = new Transaction.Builder(
+		      transactionId,                                        // (String) Transaction Id, should be unique.
+		      (long) (orderTotal * 1000000))                        // (long) Order total (in micros)   - *1000000
+		      .setAffiliation(affiliation)                          // (String) Affiliation  - In-App Store
+		      .setCurrencyCode(currencyCode)                        // (String) Currency  - USD,KRW
+		      .build();
+	
+		  myTrans.addItem(new Item.Builder(
+		      SKU,                                                  // (String) Product SKU - product ID
+		      productName,                                          // (String) Product name - "30 Coin Pack"
+		      (long) (productPrice * 1000000),                      // (long) Product price (in micros)
+		      (long) productQuantity)                               // (long) Product quantity
+		      .setProductCategory(productCategory)                  // (String) Product category
+		      .build());
+		tracker.sendTransaction(myTrans);
 	}
 
 }

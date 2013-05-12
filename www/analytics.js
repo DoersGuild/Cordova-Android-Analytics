@@ -99,6 +99,27 @@ Analytics.prototype.trackSocial = function(network, action, target, successCallb
 };
 
 /**
+ * Track e-commerce transaction
+ * @param transactionId	   Transaction Id, should be unique.
+ * @param orderTotal       Total order 
+ * @param affiliation	   Affiliation. (e.g. In-App Store)
+ * @param currencyCode     Currency Code (e.g. USD,KRW)
+ * @param SKU              Product SKU (ID)
+ * @param productName      Product name
+ * @param productPrice     Product price
+ * @param productQuantity  Product quantity
+ * @param productCategory  Product category
+
+ * @param successCallback	The success callback
+ * @param failureCallback	The error callback
+ */
+
+Analytics.prototype.trackCommerce = function(transactionId,orderTotal,affiliation,currencyCode,SKU,productName,productPrice,productQuantity,productCategory, successCallback, failureCallback) {
+    return cordova.exec(successCallback, failureCallback, 'GoogleAnalyticsTracker', 'trackCommerce', 
+    		[transactionId,orderTotal,affiliation,currencyCode,SKU,productName,productPrice,productQuantity,productCategory]);
+};
+
+/**
  * Load Analytics
  */
 
