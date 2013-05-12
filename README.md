@@ -156,7 +156,76 @@ Sample use:
 	);
 </code>
 </pre>
-	
+####trackSocial(network, action, target, successCallback, failureCallback)####
+Used to track social interaction within your app, such as social network, actions, and target URLs.
+
+<pre>
+/**
+* @param network	Represents the social network with which the user is interacting (e.g. Google+, Facebook, Twitter, etc.).
+* @param action	Represents the social action taken (e.g. Like, Share, +1, etc.).
+* @param target	Represents the content on which the social action is being taken (i.e. a specific article or video). (optional)
+
+* @param successCallback The success callback
+* @param failureCallback The error callback
+*/
+</pre>
+Sample use:
+<pre>
+<code>
+	window.plugins.analytics.trackSocial(
+					"twitter",
+					"Tweet",
+					"https://developers.google.com/analytics",
+					function(){
+				    	console.log("Track: success");
+				    }, 
+				    function(){
+				    	console.log("Track: failure");
+				    }
+	);
+</code>
+</pre>
+####trackCommerce(transactionId,orderTotal,affiliation,currencyCode,SKU,productName,productPrice,productQuantity,productCategory, successCallback, failureCallback)####
+Used to track commerce transaction within your app.
+
+<pre>
+/**
+* @param transactionId	  Transaction Id, should be unique.
+* @param orderTotal       Total order 
+* @param affiliation	  Affiliation. (e.g. In-App Store)
+* @param currencyCode     Currency Code (e.g. USD,KRW)
+* @param SKU              Product SKU (ID)
+* @param productName      Product name
+* @param productPrice     Product price
+* @param productQuantity  Product quantity
+* @param productCategory  Product category
+
+* @param successCallback The success callback
+* @param failureCallback The error callback
+*/
+</pre>
+Sample use:
+<pre>
+<code>
+	window.plugins.analytics.trackCommerce(
+					"0_123456",
+					2.99,
+					"In-App Store",
+					"USD"
+					"L_789",
+					"30 Coin Pack",
+					2.99,
+					1,
+					"Coin",
+					function(){
+				    	console.log("Track: success");
+				    }, 
+				    function(){
+				    	console.log("Track: failure");
+				    }
+	);
+</code>
+</pre>
 ####setCustomDimension(index,value, successCallback, failureCallback)####
 Set a custom dimension.  This replaces custom variables from v1.
 see https://developers.google.com/analytics/devguides/platform/features/customdimsmets
