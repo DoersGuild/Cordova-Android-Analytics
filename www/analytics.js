@@ -85,6 +85,41 @@ Analytics.prototype.setCustomDimension = function(index, value, successCallback,
 };
 
 /**
+ * Track social interaction on Google Analytics
+ * @param network	Represents the social network with which the user is interacting (e.g. Google+, Facebook, Twitter, etc.).
+ * @param action	Represents the social action taken (e.g. Like, Share, +1, etc.).
+ * @param target	Represents the content on which the social action is being taken (i.e. a specific article or video). (optional)
+
+ * @param successCallback	The success callback
+ * @param failureCallback	The error callback
+ */
+
+Analytics.prototype.trackSocial = function(network, action, target, successCallback, failureCallback) {
+    return cordova.exec(successCallback, failureCallback, 'GoogleAnalyticsTracker', 'trackSocial', [network, action, typeof target === "undefined" ? "" : target]);
+};
+
+/**
+ * Track e-commerce transaction
+ * @param transactionId	   Transaction Id, should be unique.
+ * @param orderTotal       Total order 
+ * @param affiliation	   Affiliation. (e.g. In-App Store)
+ * @param currencyCode     Currency Code (e.g. USD,KRW)
+ * @param SKU              Product SKU (ID)
+ * @param productName      Product name
+ * @param productPrice     Product price
+ * @param productQuantity  Product quantity
+ * @param productCategory  Product category
+
+ * @param successCallback	The success callback
+ * @param failureCallback	The error callback
+ */
+
+Analytics.prototype.trackCommerce = function(transactionId,orderTotal,affiliation,currencyCode,SKU,productName,productPrice,productQuantity,productCategory, successCallback, failureCallback) {
+    return cordova.exec(successCallback, failureCallback, 'GoogleAnalyticsTracker', 'trackCommerce', 
+    		[transactionId,orderTotal,affiliation,currencyCode,SKU,productName,productPrice,productQuantity,productCategory]);
+};
+
+/**
  * Load Analytics
  */
 
