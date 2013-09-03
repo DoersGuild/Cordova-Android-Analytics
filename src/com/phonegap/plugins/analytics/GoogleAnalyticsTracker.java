@@ -13,7 +13,7 @@ import org.apache.cordova.api.CordovaPlugin;
 import org.json.JSONArray;
 import org.json.JSONException;
 
-import com.google.analytics.tracking.android.EasyTracker;
+import com.google.analytics.tracking.android.GoogleAnalytics;
 import com.google.analytics.tracking.android.Tracker;
 import com.google.analytics.tracking.android.Transaction;
 import com.google.analytics.tracking.android.Transaction.Item;
@@ -28,21 +28,24 @@ public class GoogleAnalyticsTracker extends CordovaPlugin {
 	public static final String TRACK_SOCIAL = "trackSocial";
 	public static final String TRACK_COMMERCE = "trackCommerce";
 
+	private GoogleAnalytics ga;
 	private Tracker tracker;
-	private com.google.analytics.tracking.android.EasyTracker instance;
 
 	public GoogleAnalyticsTracker() {
-		instance = com.google.analytics.tracking.android.EasyTracker
-				.getInstance();
 	}
 
 	@Override
 	public boolean execute(String action, JSONArray data, CallbackContext callbackContext) {
 		boolean result = false;
 		if (START.equals(action)) {
-			start();
-			callbackContext.success();
-			result = true;
+			try {
+				start(data.getString(0));
+				callbackContext.success();
+				result = true;
+			} catch (JSONException e) {
+				callbackContext.error("JSON Exception");
+				result = false;
+			}
 		} else if (TRACK_PAGE_VIEW.equals(action)) {
 			try {
 				trackPageView(data.getString(0));
@@ -112,13 +115,13 @@ public class GoogleAnalyticsTracker extends CordovaPlugin {
 		return result;
 	}
 
-	private void start() {
-		instance.activityStart(this.cordova.getActivity());
-		tracker = EasyTracker.getTracker();
+	private void start(String accountId) {
+		ga = GoogleAnalytics.getInstance(this.cordova.getActivity());
+		tracker = ga.getTracker(accountId);
 	}
 
 	private void stop() {
-		instance.activityStop(this.cordova.getActivity());
+		ga.closeTracker(tracker);
 	}
 
 	private void trackPageView(String key) {

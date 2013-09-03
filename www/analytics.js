@@ -15,11 +15,12 @@ var Analytics = function() {
 /**
  * Initialize Google Analytics configuration
  *
+ * @param accountId     	The google account id to track
  * @param successCallback   The success callback
  * @param failureCallback   The error callback
  */
-Analytics.prototype.start = function(successCallback, failureCallback) {
-    return cordova.exec(successCallback, failureCallback, 'GoogleAnalyticsTracker', 'start', []);
+Analytics.prototype.start = function(accountId, successCallback, failureCallback) {
+    return cordova.exec(successCallback, failureCallback, 'GoogleAnalyticsTracker', 'start', [accountId]);
 };
 
 /**
